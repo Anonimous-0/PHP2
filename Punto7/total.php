@@ -1,19 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Resultados de la Encuesta</title>
+</head>
+
+<body>
+
 <?php
 
-$nom = $_POST["nombre"];
+if (isset($_POST["calificaciones"])) {
 
-$sum = 0;
+    $calf = $_POST["calificaciones"];
 
-for ($i = 1; $i <= 10; $i++) {
+    $totalresp = count($calf);
 
-    $sum += $_POST["p".$i];
+    $sum = 0;
 
+    foreach ($calf as $val) {
+        $sum += (int) $val;
+    }
+
+    $prom = $sum / $totalresp;
+
+    echo "<h2>Resultados de la encuesta</h2>";
+    echo "<p>Total de calificaciones registradas: $totalresp</p>";
+    echo "<p>Suma de todas las calificaciones: $sum</p>";
+    echo "<p>Promedio general de satisfacción (escala 1-5): " . round($prom, 2) . "</p>";
+
+} else {
+    echo "<p>No se recibieron datos de la encuesta.</p>";
 }
 
-$prom = $sum / 10;
+?>
 
-echo "Resultado de la encuesta";
+<br>
+<a href="index.php">Volver al inicio</a>
 
-echo "Encuestado: " . $nom . "<br><br>";
+</body>
 
-echo "Promedio obtenido: " . $prom;
+</html>
